@@ -20,28 +20,6 @@ class Employee(Base):
     __tablename__ = 'employee'
  
     e_name = Cloumn(String)
-#index.py
-#coding=UTF-8
-
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.exc import NoResultFound
-from flask import Flask
-  
-engine = create_engine('mysql+pymysql://testUser:testPassword@localhost/test')
-
-# モデルの作成
- 
-# まずベースモデルを生成します
-Base = declarative_base()
- 
- 
-# 従業員モデルクラス
-class Employee(Base):
-    __tablename__ = 'employee'
- 
-    e_name = Cloumn(String)
     e_name_kana = Cloumn(String)
     e_name_en = Cloumn(String)
     postal_code = Cloumn(String)
