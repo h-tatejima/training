@@ -19,87 +19,89 @@
   </head>
   <body>
     <h1>社員情報編集</h1>
-    	<table>
-    		<tr>
-    			<td>
-    				<label for="id_name">名前</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    			<td>
-    				<label for="id_name">ふりがな</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    		</tr>
-    		<tr>
-    			<td>
-    				<label for="id_name">name</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    		</tr>
-    		<tr>
-    			<td>
-    				<label for="id_name">性別</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    			<td>
-    				<label for="id_name">生年月日</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    		</tr>
-    		<tr>
-    			<td>
-    				<label for="id_name">郵便番号</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    			<td>
-    				<label for="id_name">住所</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    		</tr>
-    		<tr>
-    			<td>
-    				<label for="id_name">電話番号</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    			<td>
-    				<label for="id_name">メールアドレス</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    		</tr>
-    		<tr>
-    			<td>
-    				<label for="id_name">最終学歴</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    			<td>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    		</tr>
-    		<tr>
-    			<td>
-    				<label for="id_name">従業員ID</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    			<td>
-    				<label for="id_name">入社年月日</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    		</tr>
-    		<tr>
-    			<td>
-    				<label for="id_name">自社メールアドレス</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    			<td>
-    				<label for="id_name">写真</label>
-    				<input type="text" name="name" required id="id_name" />
-    			</td>
-    		</tr>
-	    </table>
-   		<a href="http://192.168.33.182/index">
-			<button type="button">戻る</button>
-   		</a>
-   		<input type="button" value="登録" class="/insert">
+   		<form action="/add" method="POST">
+	    	<table>
+	    		<tr>
+	    			<td>
+	    				<label for="id_name">名前</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    			<td>
+	    				<label for="id_name">ふりがな</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label for="id_name">name</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label for="id_name">性別</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    			<td>
+	    				<label for="id_name">生年月日</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label for="id_name">郵便番号</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    			<td>
+	    				<label for="id_name">住所</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label for="id_name">電話番号</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    			<td>
+	    				<label for="id_name">メールアドレス</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label for="id_name">最終学歴</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    			<td>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label for="id_name">従業員ID</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    			<td>
+	    				<label for="id_name">入社年月日</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label for="id_name">自社メールアドレス</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    			<td>
+	    				<label for="id_name">写真</label>
+	    				<input type="text" name="name" required id="id_name" />
+	    			</td>
+	    		</tr>
+		    </table>
+	   		<a href="http://192.168.33.182/index">
+				<button type="button">戻る</button>
+	   		</a>
+	   		<input type="button" value="登録" class="/add">
+	   	</form>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

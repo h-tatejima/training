@@ -6,6 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 from flask import Flask, render_template
+import pdb
   
 engine = create_engine('mysql+pymysql://testUser:testPassword@localhost/test')
 
@@ -75,20 +76,58 @@ Base.metadata.create_all(engine)  # 作成した engine を引数にすること
 app = Flask(__name__)
 
 
+# SQLAlchemy はセッションを介してクエリを実行する
+Session = sessionmaker(bind=engine)
+session = Session()
+
 @app.route('/index')
-def  index2():
-    return render_template('/bootstrap/index.html')
+def  index():
+    employee = session.query(Employee).all()
+    return render_template('/bootstrap/index.html', employee=employee)
     
 @app.route('/insert')
 def  insert():
+    pdb.set_trace()
     return render_template('/bootstrap/insert.html')
+    
+@app.route('/add',methods=["post"])
+def  add():
+    pdb.set_trace()
+    e_name = request.form["e_name"]
+    e_name_kana = request.form["e_name_kana"]
+    e_name_en = request.form["e_name_en"]
+    postal_code = request.form["postal_code"]
+    address = request.form["address"]
+    phone_number = request.form["phone_number"]
+    email = request.form["email"]
+    sex = request.form["sex"]
+    birthday = request.form["birthday"]
+    final_education = request.form["final_education"]
+    join_date = request.form["join_date"]
+    company_email = request.form["company_email"]
+    e_id = request.form["e_id"]
+    image = request.form["image"]
+    session.add(Employee(\
+    e_name=e_name,\
+    e_name_kana=e_name_kana,\
+    e_name_en=e_name_en,\
+    postal_code=postal_code,\
+    address=address,\
+    phone_number=phone_number,\
+    email=email,\
+    sex=sex,\
+    birthday=birthday,\
+    final_education=final_education,\
+    join_date=join_date,\
+    company_email=company_email,\
+    e_id=e_id,\
+    image=image))
+    session.commit()
+    return index()
 
 if __name__ == '__main__':
     app.run(debug = True, host='0.0.0.0', port=80)
 
-# SQLAlchemy はセッションを介してクエリを実行する
-Session = sessionmaker(bind=engine)
-session = Session()
 
 # セッション・クローズ
 # DB処理が不要になったタイミングやスクリプトの最後で実行
