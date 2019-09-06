@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="jp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>社員情報編集</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1>{{ employee.e_name }}</h1>
+       	<table border="1" width="1000">
+    		<tr>
+    			<th width="300">
+    				<label>名前</label>
+    			</th>
+    			<td colspan="4">
+    				{{ employee.e_name }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>ふりがな</label>
+    			</th>
+    			<td colspan="4">
+    				{{ employee.e_name_kana }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>name</label>
+    			</th>
+    			<td colspan="4">
+    				{{ employee.e_name_en }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>性別</label>
+    			</th>
+    			<td colspan="2">
+    				{{ employee.sex }}
+    			</td>
+    			<td colspan="1">
+    				<label>生年月日</label>
+    			</td>
+    			<td colspan="2">
+    				{{ employee.birthday }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>住所</label>
+    			</th>
+    			<td>
+    				{{ employee.postal_code }}
+    			</td>
+    			<td colspan="3">
+    				{{ employee.address }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>電話番号</label>
+    			</th>
+    			<td colspan="5">
+    				{{ employee.phone_number }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>メールアドレス</label>
+    			</th>
+    			<td colspan="5">
+    				{{ employee.email }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>最終学歴</label>
+    			</th>
+    			<td colspan="5">
+    				{{ employee.final_education }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>従業員ID</label>
+    			</th>
+    			<td colspan="5">
+    				{{ employee.e_id }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>入社年月日</label>
+    			</th>
+    			<td colspan="5">
+    				{{ employee.join_date }}
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>
+    				<label>自社メールアドレス</label>
+    			</th>
+    			<td colspan="5">
+    				{{ employee.company_email }}
+    			</td>
+    		</tr>
+	    </table>
+   		<a href="{{ url_for('update',id=employee.e_id)}}">
+   			<button type="button">編集</button>
+   		</a>
+   		<a href="{{ url_for('delete',id=employee.e_id)}}">
+	   		<button type="button">削除</button>
+	   	</a>
+   		<a href="http://192.168.33.182/index">
+			<button type="button">戻る</button>
+   		</a>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

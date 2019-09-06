@@ -19,89 +19,175 @@
   </head>
   <body>
     <h1>社員情報編集</h1>
-   		<form action="/add" method="POST">
+    {% if employee %}
+       		<form action="{{ url_for('update_employee',id=employee.e_id)}}" method="post">
 	    	<table>
 	    		<tr>
 	    			<td>
-	    				<label for="id_name">名前</label>
-	    				<input type="text" name="name" required id="id_name" />
+	    				<label>名前</label>
+	    				<input type="text" name="e_name" value="{{ employee.e_name }}" />
 	    			</td>
 	    			<td>
-	    				<label for="id_name">ふりがな</label>
-	    				<input type="text" name="name" required id="id_name" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<label for="id_name">name</label>
-	    				<input type="text" name="name" required id="id_name" />
+	    				<label>ふりがな</label>
+	    				<input type="text" name="e_name_kana" value="{{ employee.e_name_kana }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
-	    				<label for="id_name">性別</label>
-	    				<input type="text" name="name" required id="id_name" />
-	    			</td>
-	    			<td>
-	    				<label for="id_name">生年月日</label>
-	    				<input type="text" name="name" required id="id_name" />
+	    				<label>name</label>
+	    				<input type="text" name="e_name_en" value="{{ employee.e_name_en }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
-	    				<label for="id_name">郵便番号</label>
-	    				<input type="text" name="name" required id="id_name" />
+	    				<label>性別</label>
+	    				<input type="text" name="sex" value="{{ employee.sex }}" />
 	    			</td>
 	    			<td>
-	    				<label for="id_name">住所</label>
-	    				<input type="text" name="name" required id="id_name" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<label for="id_name">電話番号</label>
-	    				<input type="text" name="name" required id="id_name" />
-	    			</td>
-	    			<td>
-	    				<label for="id_name">メールアドレス</label>
-	    				<input type="text" name="name" required id="id_name" />
+	    				<label>生年月日</label>
+	    				<input type="text" name="birthday" value="{{ employee.birthday }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
-	    				<label for="id_name">最終学歴</label>
-	    				<input type="text" name="name" required id="id_name" />
+	    				<label>郵便番号</label>
+	    				<input type="text" name="postal_code" value="{{ employee.postal_code }}" />
 	    			</td>
 	    			<td>
-	    				<input type="text" name="name" required id="id_name" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<label for="id_name">従業員ID</label>
-	    				<input type="text" name="name" required id="id_name" />
-	    			</td>
-	    			<td>
-	    				<label for="id_name">入社年月日</label>
-	    				<input type="text" name="name" required id="id_name" />
+	    				<label>住所</label>
+	    				<input type="text" name="address" value="{{ employee.address }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
-	    				<label for="id_name">自社メールアドレス</label>
-	    				<input type="text" name="name" required id="id_name" />
+	    				<label>電話番号</label>
+	    				<input type="text" name="phone_number" value="{{ employee.phone_number }}" />
 	    			</td>
 	    			<td>
-	    				<label for="id_name">写真</label>
-	    				<input type="text" name="name" required id="id_name" />
+	    				<label>メールアドレス</label>
+	    				<input type="text" name="email" value="{{ employee.email }}" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>最終学歴</label>
+	    				<input type="text" name="final_education" value="{{ employee.last_education }}" />
+	    			</td>
+	    			<td>
+	    				
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>従業員ID</label>
+	    				<input type="text" name="e_id" value="{{ employee.e_id }}" />
+	    			</td>
+	    			<td>
+	    				<label>入社年月日</label>
+	    				<input type="text" name="join_date" value="{{ employee.join_date }}" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>自社メールアドレス</label>
+	    				<input type="text" name="company_email" value="{{ employee.company_email }}" />
+	    			</td>
+	    			<td>
+	    				<label>写真</label>
+	    				<input type="text" name="image" value="{{ employee.image }}" />
+	    			</td>
+	    		</tr>
+		    </table>
+	   		<a href="{{ url_for('detail',id=employee.e_id)}}">
+				<button type="button">戻る</button>
+	   		</a>
+	   		<input type="submit" value="登録">
+	   	</form>
+	{% else %}
+   		<form action="/add" method="post">
+	    	<table>
+	    		<tr>
+	    			<td>
+	    				<label>名前</label>
+	    				<input type="text" name="e_name" />
+	    			</td>
+	    			<td>
+	    				<label>ふりがな</label>
+	    				<input type="text" name="e_name_kana" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>name</label>
+	    				<input type="text" name="e_name_en" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>性別</label>
+	    				<input type="text" name="sex" />
+	    			</td>
+	    			<td>
+	    				<label>生年月日</label>
+	    				<input type="text" name="birthday" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>郵便番号</label>
+	    				<input type="text" name="postal_code" />
+	    			</td>
+	    			<td>
+	    				<label>住所</label>
+	    				<input type="text" name="address" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>電話番号</label>
+	    				<input type="text" name="phone_number" />
+	    			</td>
+	    			<td>
+	    				<label>メールアドレス</label>
+	    				<input type="text" name="email" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>最終学歴</label>
+	    				<input type="text" name="final_education" />
+	    			</td>
+	    			<td>
+	    				
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>従業員ID</label>
+	    				<input type="text" name="e_id" />
+	    			</td>
+	    			<td>
+	    				<label>入社年月日</label>
+	    				<input type="text" name="join_date" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>自社メールアドレス</label>
+	    				<input type="text" name="company_email" />
+	    			</td>
+	    			<td>
+	    				<label>写真</label>
+	    				<input type="text" name="image" />
 	    			</td>
 	    		</tr>
 		    </table>
 	   		<a href="http://192.168.33.182/index">
 				<button type="button">戻る</button>
 	   		</a>
-	   		<input type="button" value="登録" class="/add">
+	   		<input type="submit" value="登録">
 	   	</form>
+	{% endif %}
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

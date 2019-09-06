@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pdb
   
 engine = create_engine('mysql+pymysql://testUser:testPassword@localhost/test')
@@ -87,12 +87,12 @@ def  index():
     
 @app.route('/insert')
 def  insert():
-    pdb.set_trace()
+    #pdb.set_trace()
     return render_template('/bootstrap/insert.html')
     
 @app.route('/add',methods=["post"])
 def  add():
-    pdb.set_trace()
+    #pdb.set_trace()
     e_name = request.form["e_name"]
     e_name_kana = request.form["e_name_kana"]
     e_name_en = request.form["e_name_en"]
@@ -122,6 +122,44 @@ def  add():
     company_email=company_email,\
     e_id=e_id,\
     image=image))
+    session.commit()
+    return index()
+    
+@app.route('/<int:id>/detail', methods=["get"])
+def detail(id):
+    employee = session.query(Employee).get(id)
+    return render_template('/bootstrap/detail.html', employee=employee)
+    
+@app.route('/<int:id>/delete', methods=["get"])
+def delete(id):
+    employee = session.query(Employee).get(id)
+    session.delete(employee)
+    session.commit()
+    return index()
+    
+@app.route('/<int:id>/update', methods=["get"])
+def update(id):
+    employee = session.query(Employee).get(id)
+    return render_template('bootstrap/insert.html', employee=employee)
+    
+@app.route('/<int:id>/update_employee', methods=["post"])
+def update_employee(id):
+    employee = session.query(Employee).get(id)
+    employee.e_name = request.form["e_name"]
+    employee.e_name_kana = request.form["e_name_kana"]
+    employee.e_name_en = request.form["e_name_en"]
+    employee.postal_code = request.form["postal_code"]
+    employee.address = request.form["address"]
+    employee.phone_number = request.form["phone_number"]
+    employee.email = request.form["email"]
+    employee.sex = request.form["sex"]
+    employee.birthday = request.form["birthday"]
+    employee.final_education = request.form["final_education"]
+    employee.join_date = request.form["join_date"]
+    employee.company_email = request.form["company_email"]
+    employee.e_id = request.form["e_id"]
+    employee.image = request.form["image"]
+    session.add(employee)
     session.commit()
     return index()
 

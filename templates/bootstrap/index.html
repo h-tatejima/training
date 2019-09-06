@@ -33,7 +33,7 @@
 	    	<tbody>
 	    		{% for emp in employee %}
 		    		<tr>
-			    		<td>{{ emp.e_id }}</td>
+			    		<td><a href="{{ url_for('detail',id=emp.e_id)}}">{{ emp.e_id }}</a></td>
 	    				<td>{{ emp.e_name}}</td>
 	    				<td>{{ emp.join_date}}</td>
 	    			</tr>
