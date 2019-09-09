@@ -8,7 +8,8 @@
     <title>社員情報編集</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,105 +19,112 @@
     <![endif]-->
   </head>
   <body>
-    <h1>{{ employee.e_name }}</h1>
-       	<table border="1" width="1000">
-    		<tr>
-    			<th width="300">
-    				<label>名前</label>
-    			</th>
-    			<td colspan="4">
-    				{{ employee.e_name }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>ふりがな</label>
-    			</th>
-    			<td colspan="4">
-    				{{ employee.e_name_kana }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>name</label>
-    			</th>
-    			<td colspan="4">
-    				{{ employee.e_name_en }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>性別</label>
-    			</th>
-    			<td colspan="2">
-    				{{ employee.sex }}
-    			</td>
-    			<td colspan="1">
-    				<label>生年月日</label>
-    			</td>
-    			<td colspan="2">
-    				{{ employee.birthday }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>住所</label>
-    			</th>
-    			<td>
-    				{{ employee.postal_code }}
-    			</td>
-    			<td colspan="3">
-    				{{ employee.address }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>電話番号</label>
-    			</th>
-    			<td colspan="5">
-    				{{ employee.phone_number }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>メールアドレス</label>
-    			</th>
-    			<td colspan="5">
-    				{{ employee.email }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>最終学歴</label>
-    			</th>
-    			<td colspan="5">
-    				{{ employee.final_education }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>従業員ID</label>
-    			</th>
-    			<td colspan="5">
-    				{{ employee.e_id }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>入社年月日</label>
-    			</th>
-    			<td colspan="5">
-    				{{ employee.join_date }}
-    			</td>
-    		</tr>
-    		<tr>
-    			<th>
-    				<label>自社メールアドレス</label>
-    			</th>
-    			<td colspan="5">
-    				{{ employee.company_email }}
-    			</td>
-    		</tr>
+    <h1><u>{{ employee.e_name }}</u></h1>
+       	<table class="table table-bordered">
+       		<tbody>
+	    		<tr>
+	    			<td>
+	    				<label>名前</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.e_name }}
+	    			</td>
+	    			<td rowspan="3">
+	    				<img src="{{ employee.image }}" >
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>ふりがな</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.e_name_kana }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>name</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.e_name_en }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>性別</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.sex }}
+	    			</td>
+	    			<td>
+	    				<label>生年月日</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.birthday }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>住所</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.postal_code }}
+	    			</td>
+	    			<td>
+	    				{{ employee.address }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>電話番号</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.phone_number }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>メールアドレス</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.email }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>最終学歴</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.final_education }}
+	    				&nbsp;
+	    				{{ employee.final_education2 }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>従業員ID</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.e_id }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>入社年月日</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.join_date }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>自社メールアドレス</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.company_email }}
+	    			</td>
+	    		</tr>
+	    	</tbody>
 	    </table>
    		<a href="{{ url_for('update',id=employee.e_id)}}">
    			<button type="button">編集</button>
@@ -131,6 +139,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   </body>
 </html>

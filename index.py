@@ -30,6 +30,7 @@ class Employee(Base):
     sex = Column(String(100))
     birthday = Column(String(100))
     final_education = Column(String(100))
+    final_education2 = Column(String(100))
     join_date = Column(String(100))
     company_email = Column(String(100))
     e_id = Column(Integer, primary_key=True)
@@ -47,6 +48,7 @@ class Employee(Base):
         sex='%s',\
         birthday='%s',\
         final_education='%s',\
+        final_education2='%s',\
         join_date='%s',\
         company_email='%s',\
         e_id='%s',\
@@ -62,6 +64,7 @@ class Employee(Base):
         self.sex,\
         self.birthday,\
         self.final_education,\
+        self.final_education2,\
         self.join_date,\
         self.company_email,\
         self.e_id,\
@@ -103,6 +106,7 @@ def  add():
     sex = request.form["sex"]
     birthday = request.form["birthday"]
     final_education = request.form["final_education"]
+    final_education2 = request.form["final_education2"]
     join_date = request.form["join_date"]
     company_email = request.form["company_email"]
     e_id = request.form["e_id"]
@@ -118,6 +122,7 @@ def  add():
     sex=sex,\
     birthday=birthday,\
     final_education=final_education,\
+    final_education2=final_education2,\
     join_date=join_date,\
     company_email=company_email,\
     e_id=e_id,\
@@ -155,6 +160,7 @@ def update_employee(id):
     employee.sex = request.form["sex"]
     employee.birthday = request.form["birthday"]
     employee.final_education = request.form["final_education"]
+    employee.final_education2 = request.form["final_education2"]
     employee.join_date = request.form["join_date"]
     employee.company_email = request.form["company_email"]
     employee.e_id = request.form["e_id"]

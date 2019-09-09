@@ -8,7 +8,8 @@
     <title>社員情報編集</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,76 +26,124 @@
 	    		<tr>
 	    			<td>
 	    				<label>名前</label>
+	    				<br>
 	    				<input type="text" name="e_name" value="{{ employee.e_name }}" />
 	    			</td>
 	    			<td>
 	    				<label>ふりがな</label>
+	    				<br>
 	    				<input type="text" name="e_name_kana" value="{{ employee.e_name_kana }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
+	    				<br>
 	    				<label>name</label>
+	    				<br>
 	    				<input type="text" name="e_name_en" value="{{ employee.e_name_en }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
+	    				<br>
 	    				<label>性別</label>
-	    				<input type="text" name="sex" value="{{ employee.sex }}" />
+	    				<br>
+	    				{% if employee.sex=="男性" %}
+		    				<input type="radio" name="sex" value="男性" checked="checked"/>男性
+		    				<input type="radio" name="sex" value="女性"/>女性
+		    			{% else %}
+		    				<input type="radio" name="sex" value="男性"/>男性
+		    				<input type="radio" name="sex" value="女性" checked="checked"/>女性
+		    			{% endif %}
 	    			</td>
 	    			<td>
+	    				<br>
 	    				<label>生年月日</label>
+	    				<br>
 	    				<input type="text" name="birthday" value="{{ employee.birthday }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
+	    				<br>
 	    				<label>郵便番号</label>
+	    				<br>
 	    				<input type="text" name="postal_code" value="{{ employee.postal_code }}" />
 	    			</td>
 	    			<td>
+	    				<br>
 	    				<label>住所</label>
+	    				<br>
 	    				<input type="text" name="address" value="{{ employee.address }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
+	    				<br>
 	    				<label>電話番号</label>
+	    				<br>
 	    				<input type="text" name="phone_number" value="{{ employee.phone_number }}" />
 	    			</td>
 	    			<td>
+	    				<br>
 	    				<label>メールアドレス</label>
+	    				<br>
 	    				<input type="text" name="email" value="{{ employee.email }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
+	    				<br>
 	    				<label>最終学歴</label>
-	    				<input type="text" name="final_education" value="{{ employee.last_education }}" />
+	    				<br>
+	    				<input type="text" name="final_education" value="{{ employee.final_education }}" />
 	    			</td>
 	    			<td>
-	    				
+	    				<br>
+	    				<br>
+	    				<select name="final_education2">
+	    				<br>
+	    				{% if employee.final_education2=="卒業" %}
+		    				<option value="卒業">卒業</option>
+		    				<option value="中退">中退</option>
+		    				<option value="在学中">在学中</option>
+		    			{% elif employee.final_education2=="中退" %}
+		    				<option value="卒業">卒業</option>
+		    				<option value="中退" selected>中退</option>
+		    				<option value="在学中">在学中</option>
+		    			{% else %}
+		    				<option value="卒業">卒業</option>
+		    				<option value="中退">中退</option>
+		    				<option value="在学中" selected>在学中</option>
+		    			{% endif %}
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
+	    				<br>
 	    				<label>従業員ID</label>
+	    				<br>
 	    				<input type="text" name="e_id" value="{{ employee.e_id }}" />
 	    			</td>
 	    			<td>
+	    				<br>
 	    				<label>入社年月日</label>
+	    				<br>
 	    				<input type="text" name="join_date" value="{{ employee.join_date }}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
+	    				<br>
 	    				<label>自社メールアドレス</label>
+	    				<br>
 	    				<input type="text" name="company_email" value="{{ employee.company_email }}" />
 	    			</td>
 	    			<td>
+	    				<br>
 	    				<label>写真</label>
-	    				<input type="text" name="image" value="{{ employee.image }}" />
+	    				<br>
+	    				<input type="file" name="image" value="{{ employee.image }}" />
 	    			</td>
 	    		</tr>
 		    </table>
@@ -131,7 +180,7 @@
 	    				<br>
 	    				<label>性別</label>
 	    				<br>
-	    				<input type="radio" name="sex" value="男性"/>男性
+	    				<input type="radio" name="sex" value="男性" checked="checked"/>男性
 	    				<input type="radio" name="sex" value="女性"/>女性
 	    			</td>
 	    			<td>
@@ -177,7 +226,13 @@
 	    				<input type="text" name="final_education" />
 	    			</td>
 	    			<td>
-	    				
+	    				<br>
+	    				<br>
+	    				<select name="final_education2">
+	    				<br>
+	    				<option value="卒業">卒業</option>
+	    				<option value="中退">中退</option>
+	    				<option value="在学中">在学中</option>
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -205,7 +260,7 @@
 	    				<br>
 	    				<label>写真</label>
 	    				<br>
-	    				<input type="text" name="image" />
+	    				<input type="file" name="image" />
 	    			</td>
 	    		</tr>
 		    </table>
@@ -219,6 +274,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   </body>
 </html>
