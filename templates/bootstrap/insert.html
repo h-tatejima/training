@@ -22,6 +22,7 @@
     <h1>社員情報編集</h1>
     {% if employee %}
        		<form action="{{ url_for('update_employee',id=employee.e_id)}}" method="post">
+       		{{ form.csrf_token }}
 	    	<table>
 	    		<tr>
 	    			<td>
@@ -157,22 +158,31 @@
 	    	<table>
 	    		<tr>
 	    			<td>
-	    				<label>名前</label>
-	    				<br>
-	    				<input type="text" name="e_name" />
+						{{ form.e_name.label }}
+						<br>
+						{{ form.e_name }}
+	    				{% for error in form.e_name.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    			<td>
-	    				<label>ふりがな</label>
-	    				<br>
-	    				<input type="text" name="e_name_kana" />
+	    				{{ form.e_name_kana.label }}
+						<br>
+						{{ form.e_name_kana }}
+	    				{% for error in form.e_name_kana.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
 	    				<br>
-	    				<label>name</label>
-	    				<br>
-	    				<input type="text" name="e_name_en" />
+	    				{{ form.e_name_en.label }}
+						<br>
+						{{ form.e_name_en }}
+	    				{% for error in form.e_name_en.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -185,45 +195,63 @@
 	    			</td>
 	    			<td>
 	    				<br>
-	    				<label>生年月日</label>
-	    				<br>
-	    				<input type="text" name="birthday" />
+	    				{{ form.birthday.label }}
+						<br>
+						{{ form.birthday }}
+	    				{% for error in form.birthday.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
 	    				<br>
-	    				<label>郵便番号</label>
-	    				<br>
-	    				<input type="text" name="postal_code" />
+	    				{{ form.postal_code.label }}
+						<br>
+						{{ form.postal_code }}
+	    				{% for error in form.postal_code.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    			<td>
 	    				<br>
-	    				<label>住所</label>
-	    				<br>
-	    				<input type="text" name="address" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				<label>電話番号</label>
-	    				<br>
-	    				<input type="text" name="phone_number" />
-	    			</td>
-	    			<td>
-	    				<br>
-	    				<label>メールアドレス</label>
-	    				<br>
-	    				<input type="text" name="email" />
+	    				{{ form.address.label }}
+						<br>
+						{{ form.address }}
+	    				{% for error in form.address.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
 	    				<br>
-	    				<label>最終学歴</label>
+	    				{{ form.phone_number.label }}
+						<br>
+						{{ form.phone_number }}
+	    				{% for error in form.phone_number.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
+	    			</td>
+	    			<td>
 	    				<br>
-	    				<input type="text" name="final_education" />
+	    				{{ form.email.label }}
+						<br>
+						{{ form.email }}
+	    				{% for error in form.email.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<br>
+	    				{{ form.final_education.label }}
+						<br>
+						{{ form.final_education }}
+	    				{% for error in form.final_education.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    			<td>
 	    				<br>
@@ -238,29 +266,41 @@
 	    		<tr>
 	    			<td>
 	    				<br>
-	    				<label>従業員ID</label>
-	    				<br>
-	    				<input type="text" name="e_id" />
+	    				{{ form.e_id.label }}
+						<br>
+						{{ form.e_id }}
+	    				{% for error in form.e_id.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    			<td>
 	    				<br>
-	    				<label>入社年月日</label>
-	    				<br>
-	    				<input type="text" name="join_date" />
+	    				{{ form.join_date.label }}
+						<br>
+						{{ form.join_date }}
+	    				{% for error in form.join_date.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
 	    				<br>
-	    				<label>自社メールアドレス</label>
-	    				<br>
-	    				<input type="text" name="company_email" />
+	    				{{ form.company_email.label }}
+						<br>
+						{{ form.company_email }}
+	    				{% for error in form.company_email.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    			<td>
 	    				<br>
-	    				<label>写真</label>
-	    				<br>
-	    				<input type="file" name="image" />
+	    				{{ form.image.label }}
+						<br>
+						{{ form.image }}
+	    				{% for error in form.image.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
 	    			</td>
 	    		</tr>
 		    </table>
