@@ -21,8 +21,7 @@
   <body>
     <h1>社員情報編集</h1>
     {% if employee %}
-       		<form action="{{ url_for('update_employee',id=employee.e_id)}}" method="post">
-       		{{ form.csrf_token }}
+       	<form action="{{ url_for('update_employee',id=employee.e_id)}}" method="post">
 	    	<table>
 	    		<tr>
 	    			<td>
@@ -155,6 +154,8 @@
 	   	</form>
 	{% else %}
    		<form action="/add" method="post">
+   			{{ form.csrf_token }}
+       		{{ form.hidden_tag() }}
 	    	<table>
 	    		<tr>
 	    			<td>
@@ -299,6 +300,34 @@
 						<br>
 						{{ form.image }}
 	    				{% for error in form.image.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<br>
+	    				{{ form.branch_id.label }}
+						<br>
+						<select name="branch_id">
+							{% for branch in branch %}
+								<option value="{{ branch.branch_id }}">{{ branch.branch_name }}</option>
+							{% endfor %}
+						</select>
+	    				{% for error in form.branch_id.errors %}
+							<span style="color: red;">{{ error }}</span>
+						{% endfor %}
+	    			</td>
+	    			<td>
+	    				<br>
+	    				{{ form.department_id.label }}
+						<br>
+						<select name="department_id">
+							{% for department in department %}
+								<option value="{{ department.department_id }}">{{ department.department_name }}</option>
+							{% endfor %}
+						</select>
+	    				{% for error in form.department_id.errors %}
 							<span style="color: red;">{{ error }}</span>
 						{% endfor %}
 	    			</td>

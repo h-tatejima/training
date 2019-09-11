@@ -38,6 +38,8 @@ class Employee(Base):
     company_email = Column(String(100))
     e_id = Column(String(100), primary_key=True)
     image = Column(String(100))
+    branch_id = Column(String(5))
+    department_id = Column(String(5))
      
     def __repr__(self):
         return "<Employee(\
@@ -55,7 +57,9 @@ class Employee(Base):
         join_date='%s',\
         company_email='%s',\
         e_id='%s',\
-        image='%s')>"\
+        image='%s'\
+        branch_id='%s'\
+        department_id='%s')>"\
          % (\
         self.e_name,\
         self.e_name_kana,\
@@ -71,9 +75,40 @@ class Employee(Base):
         self.join_date,\
         self.company_email,\
         self.e_id,\
-        self.image)
+        self.image,\
+        self.branch,\
+        self.department)
+
+# 支店モデルクラス
+class Branch(Base):
+    __tablename__ = 'branch'
  
+    branch_id = Column(String(5), primary_key=True)
+    branch_name = Column(String(100))
+    
+    def __repr__(self):
+        return "<Branch(\
+        branch_id='%s',\
+        branch_name='%s')>"\
+         % (\
+        self.branch_id,\
+        self.branch_name)
+
+# 部署モデルクラス
+class Department(Base):
+    __tablename__ = 'department'
  
+    department_id = Column(String(5), primary_key=True)
+    department_name = Column(String(100))
+    
+    def __repr__(self):
+        return "<Department(\
+        department_id='%s',\
+        department_name='%s')>"\
+         % (\
+        self.department_id,\
+        self.department_name)
+
 # テーブルの作成
 # テーブルがない場合 CREATE TABLE 文が実行される
 Base.metadata.create_all(engine)  # 作成した engine を引数にすること
@@ -94,6 +129,8 @@ class InsertForm(FlaskForm):
     company_email = StringField('自社メールアドレス')
     e_id = StringField('従業員ID')
     image = FileField('写真イメージ')
+    branch_id = StringField('所属支店')
+    department_id = StringField('所属部署')
     
     def validate_e_name(self, e_name):
         if e_name.data == "":
@@ -164,6 +201,11 @@ class InsertForm(FlaskForm):
     def validate_image(self, image):
         if image.data == "":
             raise ValidationError("写真イメージを選択して下さい")
+            
+    def validate_department_id(self, department_id):
+        if branch_id.data == "00001":
+            if department_id.data == "00001" and department_id.data == "00005":
+                raise ValidationError("東京支店の場合、所属部署はSI事業部、新規商材開発部、受託開発事業部、営業部を選択して下さい")
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret_key"
@@ -171,6 +213,31 @@ app.config["SECRET_KEY"] = "secret_key"
 # SQLAlchemy はセッションを介してクエリを実行する
 Session = sessionmaker(bind=engine)
 session = Session()
+
+branch = session.query(Branch).count()
+if branch == 0:
+
+    session.add_all([
+        Branch(branch_id="00001", branch_name="東京支店"),
+        Branch(branch_id="00002", branch_name="東海支店"),
+        Branch(branch_id="00003", branch_name="東北支店")
+    ])
+
+    session.commit()
+    
+department = session.query(Department).count()
+if department == 0:
+
+    session.add_all([
+        Department(department_id="00001", department_name="組み込み開発事業部"),
+        Department(department_id="00002", department_name="SI事業部"),
+        Department(department_id="00003", department_name="受託開発事業部"),
+        Department(department_id="00004", department_name="新規商材開発事業部"),
+        Department(department_id="00005", department_name="総務部"),
+        Department(department_id="00006", department_name="営業部")
+    ])
+    
+    session.commit()
 
 @app.route('/index')
 def  index():
@@ -181,14 +248,13 @@ def  index():
 def  insert():
     #pdb.set_trace()
     form = InsertForm()
-    message = "message"
-    return render_template('/bootstrap/insert.html', form=form)
+    branch = session.query(Branch).all()
+    department = session.query(Department).all()
+    return render_template('/bootstrap/insert.html', form=form, branch=branch, department=department)
     
 @app.route('/add',methods=["post"])
 def  add():
-    #pdb.set_trace()
     form = InsertForm()
-    
     if form.validate_on_submit():
         e_name = request.form["e_name"]
         e_name_kana = request.form["e_name_kana"]
@@ -226,24 +292,24 @@ def  add():
         
     return render_template("/bootstrap/insert.html", form=form)
     
-@app.route('/<id>/detail', methods=["get"])
+@app.route('/detail/<id>', methods=["get"])
 def detail(id):
     employee = session.query(Employee).get(id)
     return render_template('/bootstrap/detail.html', employee=employee)
     
-@app.route('/<id>/delete', methods=["get"])
+@app.route('/delete/<id>/', methods=["get"])
 def delete(id):
     employee = session.query(Employee).get(id)
     session.delete(employee)
     session.commit()
     return index()
     
-@app.route('/<id>/update', methods=["get"])
+@app.route('/update/<id>', methods=["get"])
 def update(id):
     employee = session.query(Employee).get(id)
     return render_template('bootstrap/insert.html', employee=employee)
     
-@app.route('/<id>/update_employee', methods=["post"])
+@app.route('/update_employee/<id>', methods=["post"])
 def update_employee(id):
     employee = session.query(Employee).get(id)
     employee.e_name = request.form["e_name"]
