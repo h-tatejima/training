@@ -9,6 +9,7 @@ from flask import Flask, render_template, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, FileField, ValidationError
 import re
+import datetime
 import pdb
   
 engine = create_engine('mysql+pymysql://testUser:testPassword@localhost/test')
@@ -143,7 +144,7 @@ class InsertForm(FlaskForm):
     def validate_e_name_en(self, e_name_en):
         if e_name_en.data == "":
             raise ValidationError("nameを入力して下さい")
-        if not (e_name_en.data.isalpha() and e_name_en.data.islower()):
+        if not re.match(r'^[a-z ]+$', e_name_en.data):
             raise ValidationError("英字(小文字)で入力して下さい")
             
     def validate_postal_code(self, postal_code):
@@ -163,8 +164,9 @@ class InsertForm(FlaskForm):
             raise ValidationError("00-0000-0000で入力して下さい")
             
     def validate_email(self, email):
-        if not re.match(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$', email.data):
-            raise ValidationError("aaa@aaa.aaaで入力して下さい")
+        if email.data != "":
+           if not re.match(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$', email.data):
+               raise ValidationError("aaa@aaa.aaaで入力して下さい")
             
     def validate_sex(self, sex):
         if sex.data == "":
@@ -181,32 +183,40 @@ class InsertForm(FlaskForm):
             raise ValidationError("最終学歴を入力して下さい")
             
     def validate_join_date(self, join_date):
+        join_date_split = join_date.data.split("-")
+        join_date_datetime = datetime.datetime(int(join_date_split[0]),int(join_date_split[1]),int(join_date_split[2]))
+        join_date_weekday = join_date_datetime.weekday()
         if join_date.data == "":
             raise ValidationError("入社年月日を入力して下さい")
         if not re.match(r'[0-9]{4}-[0-9]{2}-[0-9]{2}', join_date.data):
             raise ValidationError("yyyy-mm-ddで入力して下さい")
+        if join_date_weekday != 0:
+            raise ValidationError("入社年月日は月曜日を入力して下さい")
             
     def validate_company_email(self, company_email):
-        if company_email.data == "":
-            raise ValidationError("自社メールアドレスを入力して下さい")
-        if not re.match(r'^\w+([-+.]\w+)*@emdes.co.jp', company_email.data):
-            raise ValidationError("aaa@emdes.co.jpで入力して下さい")
+        branch_id = request.form["branch_id"]
+        
             
     def validate_e_id(self, e_id):
-        if e_id.data == "":
-            raise ValidationError("従業員IDを入力して下さい")
-        if not re.match(r'emd[0-9]{10}', e_id.data):
-            raise ValidationError("emd0000000000で入力して下さい")
+        branch_id = request.form["branch_id"]
+        
             
     def validate_image(self, image):
         if image.data == "":
             raise ValidationError("写真イメージを選択して下さい")
             
     def validate_department_id(self, department_id):
-        if branch_id.data == "00001":
-            if department_id.data == "00001" and department_id.data == "00005":
+        branch_id = request.form["branch_id"]
+        if branch_id == "00001":
+            if department_id.data == "00001" or department_id.data == "00005":
                 raise ValidationError("東京支店の場合、所属部署はSI事業部、新規商材開発部、受託開発事業部、営業部を選択して下さい")
-
+        elif branch_id == "00002":
+            if department_id.data == "00003" or department_id.data == "00004":
+                raise ValidationError("東海支店の場合、所属部署は組み込み開発事業部、SI事業部、総務部、営業部を選択して下さい")
+        else:
+            if department_id.data != "00003":
+                raise ValidationError("東北支店の場合、所属部署は受託開発事業部を選択して下さい")
+                  
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret_key"
 
@@ -268,9 +278,67 @@ def  add():
         final_education = request.form["final_education"]
         final_education2 = request.form["final_education2"]
         join_date = request.form["join_date"]
-        company_email = request.form["company_email"]
-        e_id = request.form["e_id"]
         image = request.form["image"]
+        branch_id = request.form["branch_id"]
+        department_id = request.form["department_id"]
+        
+        name = e_name_en.split()
+        name_first = name[0]
+        name_family = name[1]
+        name_head = name_first[0]
+        
+        for emp_name in session.query(Employee).filter(Employee.e_name_en.like("%" + name_first + "%")):
+             db_name = emp_name.e_name_en
+             db_name_split = db_name.split()
+             db_name_first = db_name_split[0]
+             if db_name_first == name_first:
+                 name_family = name_family[0]
+                 name_head = name_first
+                 
+        for emp_family in session.query(Employee).filter(Employee.e_name_en.like("%" + name_family + "%")):
+             db_name = emp_family.e_name_en
+             db_name_split = db_name.split()
+             db_name_first = db_name_split[0]
+             db_name_len = len(db_name_first)
+             in_name_len = len(name_first)
+             if db_name_len > in_name_len:
+                 name_len = in_name_len
+             else:
+                 name_len = db_name_len
+                 
+             for i in range(name_len - 1):
+                  if db_name_first[i] == name_first[i]:
+                      name_head = name_first[:i+1]
+                      
+             name_list = list()
+             name_list.append(name_head)
+             
+        name_list_len = len(name_list)
+        if name_list_len != 0:
+            name_list_max = max(name_list, key=len)
+            name_head = name_list_max
+        
+        if branch_id == "00001":
+            branch_head = "tky"
+        elif branch_id == "00002":
+            branch_head = "ngy"
+        else:
+            branch_head = "sdi"
+            
+        company_email = name_head + "-" + name_family + "@" + branch_head + ".emdes.co.jp"
+        
+        db_employee_id = list()
+        for emp in session.query(Employee):
+            db_employee_id.append(emp.e_id[6:13])
+            
+        db_employee_id_len = len(db_employee_id)
+        if db_employee_id_len != 0:
+            db_e_id_max = max(db_employee_id)
+            e_id_num = int(db_e_id_max) + 1
+            e_id = "emd" + branch_head + str(e_id_num).rjust(7,"0")
+        else:
+            e_id = "emd" + branch_head + "0000000"
+        
         session.add(Employee(\
         e_name=e_name,\
         e_name_kana=e_name_kana,\
@@ -286,18 +354,22 @@ def  add():
         join_date=join_date,\
         company_email=company_email,\
         e_id=e_id,\
-        image=image))
+        image=image,\
+        branch_id=branch_id,\
+        department_id=department_id))
         session.commit()
         return index()
         
-    return render_template("/bootstrap/insert.html", form=form)
+    branch = session.query(Branch).all()
+    department = session.query(Department).all()
+    return render_template("/bootstrap/insert.html", form=form, branch=branch, department=department)
     
 @app.route('/detail/<id>', methods=["get"])
 def detail(id):
     employee = session.query(Employee).get(id)
     return render_template('/bootstrap/detail.html', employee=employee)
     
-@app.route('/delete/<id>/', methods=["get"])
+@app.route('/delete/<id>', methods=["get"])
 def delete(id):
     employee = session.query(Employee).get(id)
     session.delete(employee)
