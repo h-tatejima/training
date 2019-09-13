@@ -20,89 +20,113 @@
   </head>
   <body>
     <h1>社員情報編集</h1>
-    {% if employee %}
-       	<form action="{{ url_for('update_employee',id=employee.e_id)}}" method="post">
-	    	<table>
-	    		<tr>
-	    			<td>
-	    				<label>名前</label>
-	    				<br>
-	    				<input type="text" name="e_name" value="{{ employee.e_name }}" />
-	    			</td>
-	    			<td>
-	    				<label>ふりがな</label>
-	    				<br>
-	    				<input type="text" name="e_name_kana" value="{{ employee.e_name_kana }}" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				<label>name</label>
-	    				<br>
-	    				<input type="text" name="e_name_en" value="{{ employee.e_name_en }}" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				<label>性別</label>
-	    				<br>
-	    				{% if employee.sex=="男性" %}
-		    				<input type="radio" name="sex" value="男性" checked="checked"/>男性
-		    				<input type="radio" name="sex" value="女性"/>女性
-		    			{% else %}
-		    				<input type="radio" name="sex" value="男性"/>男性
-		    				<input type="radio" name="sex" value="女性" checked="checked"/>女性
-		    			{% endif %}
-	    			</td>
-	    			<td>
-	    				<br>
-	    				<label>生年月日</label>
-	    				<br>
-	    				<input type="text" name="birthday" value="{{ employee.birthday }}" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				<label>郵便番号</label>
-	    				<br>
-	    				<input type="text" name="postal_code" value="{{ employee.postal_code }}" />
-	    			</td>
-	    			<td>
-	    				<br>
-	    				<label>住所</label>
-	    				<br>
-	    				<input type="text" name="address" value="{{ employee.address }}" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				<label>電話番号</label>
-	    				<br>
-	    				<input type="text" name="phone_number" value="{{ employee.phone_number }}" />
-	    			</td>
-	    			<td>
-	    				<br>
-	    				<label>メールアドレス</label>
-	    				<br>
-	    				<input type="text" name="email" value="{{ employee.email }}" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				<label>最終学歴</label>
-	    				<br>
-	    				<input type="text" name="final_education" value="{{ employee.final_education }}" />
-	    			</td>
-	    			<td>
-	    				<br>
-	    				<br>
-	    				<select name="final_education2">
-	    				<br>
+   	<form {% if employee %}action="{{ url_for('update_employee',id=employee.e_id)}}" {% else %}action="/add" {% endif %} method="post">
+   		{{ form.csrf_token }}
+   		{{ form.hidden_tag() }}
+    	<table>
+    		<tr>
+    			<td>
+    				{{ form.e_name.label }}
+					<br>
+					<input type="text" name="e_name" {% if employee %}value="{{ employee.e_name }}"{% endif %} />
+    				{% for error in form.e_name.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    			<td>
+    				{{ form.e_name_kana.label }}
+    				<br>
+    				<input type="text" name="e_name_kana" {% if employee %}value="{{ employee.e_name_kana }}"{% endif %} />
+    				{% for error in form.e_name_kana.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<br>
+    				{{ form.e_name_en.label }}
+    				<br>
+    				<input type="text" name="e_name_en" {% if employee %}value="{{ employee.e_name_en }}"{% endif %} />
+    				{% for error in form.e_name_en.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<br>
+    				{{ form.sex.label }}
+    				<br>
+	    			<input type="radio" name="sex" value="男性" {% if employee %}{% if employee.sex=="男性" %}checked="checked"{% endif %}{% endif %}/>男性
+	    			<input type="radio" name="sex" value="女性" {% if employee %}{% if employee.sex=="女性" %}checked="checked"{% endif %}{% endif %}/>女性
+    			</td>
+    			<td>
+    				<br>
+    				{{ form.birthday.label }}
+    				<br>
+    				<input type="text" name="birthday" {% if employee %}value="{{ employee.birthday }}"{% endif %} />
+    				{% for error in form.birthday.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<br>
+    				{{ form.postal_code.label }}
+    				<br>
+    				<input type="text" name="postal_code" {% if employee %}value="{{ employee.postal_code }}"{% endif %} />
+    				{% for error in form.postal_code.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    			<td>
+    				<br>
+    				{{ form.address.label }}
+    				<br>
+    				<input type="text" name="address" {% if employee %}value="{{ employee.address }}{% endif %}" />
+    				{% for error in form.address.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<br>
+    				{{ form.phone_number.label }}
+    				<br>
+    				<input type="text" name="phone_number" {% if employee %}value="{{ employee.phone_number }}"{% endif %} />
+    				{% for error in form.phone_number.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    			<td>
+    				<br>
+    				{{ form.email.label }}
+    				<br>
+    				<input type="text" name="email" {% if employee %}value="{{ employee.email }}"{% endif %} />
+    				{% for error in form.email.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<br>
+    				{{ form.final_education.label }}
+    				<br>
+    				<input type="text" name="final_education" {% if employee %}value="{{ employee.final_education }}"{% endif %} />
+    				{% for error in form.final_education.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    			<td>
+    				<br>
+    				<br>
+    				<select name="final_education2">
+    				<br>
+    				{% if employee %}
 	    				{% if employee.final_education2=="卒業" %}
 		    				<option value="卒業">卒業</option>
 		    				<option value="中退">中退</option>
@@ -116,223 +140,91 @@
 		    				<option value="中退">中退</option>
 		    				<option value="在学中" selected>在学中</option>
 		    			{% endif %}
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				<label>従業員ID</label>
-	    				<br>
-	    				<input type="text" name="e_id" value="{{ employee.e_id }}" />
-	    			</td>
-	    			<td>
-	    				<br>
-	    				<label>入社年月日</label>
-	    				<br>
-	    				<input type="text" name="join_date" value="{{ employee.join_date }}" />
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				<label>自社メールアドレス</label>
-	    				<br>
-	    				<input type="text" name="company_email" value="{{ employee.company_email }}" />
-	    			</td>
-	    			<td>
-	    				<br>
-	    				<label>写真</label>
-	    				<br>
-	    				<input type="file" name="image" value="{{ employee.image }}" />
-	    			</td>
-	    		</tr>
-		    </table>
+		    		{% else %}
+		    			<option value="卒業">卒業</option>
+		    			<option value="中退">中退</option>
+		    			<option value="在学中">在学中</option>
+		    		{% endif %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<br>
+    				{{ form.e_id.label }}
+    				<br>
+    				<input type="text" name="e_id" {% if employee %}value="{{ employee.e_id }}"{% endif %} disabled="disabled" />
+    				{% for error in form.e_id.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    			<td>
+    				<br>
+    				{{ form.join_date.label }}
+    				<br>
+    				<input type="text" name="join_date" {% if employee %}value="{{ employee.join_date }}"{% endif %} />
+    				{% for error in form.join_date.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<br>
+    				{{ form.company_email.label }}
+    				<br>
+    				<input type="text" name="company_email" {% if employee %}value="{{ employee.company_email }}" {% else %}disabled="disabled"{% endif %} />
+    				{% for error in form.company_email.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    			<td>
+    				<br>
+    				{{ form.image.label }}
+    				<br>
+    				<input type="file" name="image" {% if employee %}value="{{ employee.image }}"{% endif %} />
+    				{% for error in form.image.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<br>
+    				{{ form.branch_id.label }}
+					<br>
+					<select name="branch_id">
+						{% for branch in branch %}
+							<option value="{{ branch.branch_id }}">{{ branch.branch_name }}</option>
+						{% endfor %}
+					</select>
+    				{% for error in form.branch_id.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    			<td>
+    				<br>
+    				{{ form.department_id.label }}
+					<br>
+					<select name="department_id">
+						{% for department in department %}
+							<option value="{{ department.department_id }}">{{ department.department_name }}</option>
+						{% endfor %}
+					</select>
+    				{% for error in form.department_id.errors %}
+						<span style="color: red;">{{ error }}</span>
+					{% endfor %}
+    			</td>
+    		</tr>
+	    </table>
+	    {% if employee %}
 	   		<a href="{{ url_for('detail',id=employee.e_id)}}">
-				<button type="button">戻る</button>
-	   		</a>
-	   		<input type="submit" value="登録">
-	   	</form>
-	{% else %}
-   		<form action="/add" method="post">
-   			{{ form.csrf_token }}
-       		{{ form.hidden_tag() }}
-	    	<table>
-	    		<tr>
-	    			<td>
-						{{ form.e_name.label }}
-						<br>
-						{{ form.e_name }}
-	    				{% for error in form.e_name.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    			<td>
-	    				{{ form.e_name_kana.label }}
-						<br>
-						{{ form.e_name_kana }}
-	    				{% for error in form.e_name_kana.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				{{ form.e_name_en.label }}
-						<br>
-						{{ form.e_name_en }}
-	    				{% for error in form.e_name_en.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				<label>性別</label>
-	    				<br>
-	    				<input type="radio" name="sex" value="男性" checked="checked"/>男性
-	    				<input type="radio" name="sex" value="女性"/>女性
-	    			</td>
-	    			<td>
-	    				<br>
-	    				{{ form.birthday.label }}
-						<br>
-						{{ form.birthday }}
-	    				{% for error in form.birthday.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				{{ form.postal_code.label }}
-						<br>
-						{{ form.postal_code }}
-	    				{% for error in form.postal_code.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    			<td>
-	    				<br>
-	    				{{ form.address.label }}
-						<br>
-						{{ form.address }}
-	    				{% for error in form.address.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				{{ form.phone_number.label }}
-						<br>
-						{{ form.phone_number }}
-	    				{% for error in form.phone_number.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    			<td>
-	    				<br>
-	    				{{ form.email.label }}
-						<br>
-						{{ form.email }}
-	    				{% for error in form.email.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				{{ form.final_education.label }}
-						<br>
-						{{ form.final_education }}
-	    				{% for error in form.final_education.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    			<td>
-	    				<br>
-	    				<br>
-	    				<select name="final_education2">
-	    				<br>
-	    				<option value="卒業">卒業</option>
-	    				<option value="中退">中退</option>
-	    				<option value="在学中">在学中</option>
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				{{ form.e_id.label }}
-						<br>
-	    				<input type="text" name="company_email" disabled="disabled"/>
-	    			</td>
-	    			<td>
-	    				<br>
-	    				{{ form.join_date.label }}
-						<br>
-						{{ form.join_date }}
-	    				{% for error in form.join_date.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				{{ form.company_email.label }}
-						<br>
-						<input type="text" name="company_email" disabled="disabled"/>
-	    			</td>
-	    			<td>
-	    				<br>
-	    				{{ form.image.label }}
-						<br>
-						{{ form.image }}
-	    				{% for error in form.image.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<br>
-	    				{{ form.branch_id.label }}
-						<br>
-						<select name="branch_id">
-							{% for branch in branch %}
-								<option value="{{ branch.branch_id }}">{{ branch.branch_name }}</option>
-							{% endfor %}
-						</select>
-	    				{% for error in form.branch_id.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    			<td>
-	    				<br>
-	    				{{ form.department_id.label }}
-						<br>
-						<select name="department_id">
-							{% for department in department %}
-								<option value="{{ department.department_id }}">{{ department.department_name }}</option>
-							{% endfor %}
-						</select>
-	    				{% for error in form.department_id.errors %}
-							<span style="color: red;">{{ error }}</span>
-						{% endfor %}
-	    			</td>
-	    		</tr>
-		    </table>
+	   	{% else %}
 	   		<a href="http://192.168.33.182/index">
-				<button type="button">戻る</button>
-	   		</a>
-	   		<input type="submit" value="登録">
-	   	</form>
-	{% endif %}
+	   	{% endif %}
+			<button type="button">戻る</button>
+   		</a>
+   		<input type="submit" value="登録">
+   	</form>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
