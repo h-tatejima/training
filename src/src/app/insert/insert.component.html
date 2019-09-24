@@ -1,0 +1,99 @@
+<div class="container">
+<h1>社員情報編集</h1>
+	<form class="edit-form">
+	<table>
+		<tr>
+    		<td>
+    			<label>名前</label><br>
+				<input type="text" name="e_name" [(ngModel)]="employee.e_name">
+			</td>
+			<td>
+    			<label>よみがな</label><br>
+				<input type="text" name="e_name_kana" [(ngModel)]="employee.e_name_kana">
+			</td>
+		</tr>
+		<tr>
+			<td>
+    			<label>name</label><br>
+				<input type="text" name="e_name_en" [(ngModel)]="employee.e_name_en">
+			</td>
+		</tr>
+		<tr>
+			<td>
+    			<label>性別</label><br>
+				<input type="text" name="sex" [(ngModel)]="employee.sex">
+			</td>
+			<td>
+    			<label>生年月日</label><br>
+				<input type="text" name="birthday" [(ngModel)]="employee.birthday">
+			</td>
+		</tr>
+		<tr>
+			<td>
+    			<label>郵便番号</label><br>
+				<input type="text" name="postal_code" [(ngModel)]="employee.postal_code">
+			</td>
+			<td>
+    			<label>住所</label><br>
+				<input type="text" name="postal_code" [(ngModel)]="employee.address">
+			</td>
+		</tr>
+		<tr>
+			<td>
+    			<label>電話番号</label><br>
+				<input type="text" name="phone_number" [(ngModel)]="employee.phone_number">
+			</td>
+			<td>
+    			<label>メールアドレス</label><br>
+				<input type="text" name="email" [(ngModel)]="employee.email">
+			</td>
+		</tr>
+		<tr>
+			<td>
+    			<label>最終学歴</label><br>
+				<input type="text" name="final_education" [(ngModel)]="employee.final_education">
+			</td>
+			<td>
+				<label></label><br>
+				<input type="text" name="final_education2" [(ngModel)]="employee.final_education2">
+			</td>
+		</tr>
+		<tr>
+			<td>
+    			<label>従業員ID</label><br>
+				<input type="text" name="e_id" [(ngModel)]="employee.e_id">
+			</td>
+			<td>
+    			<label>入社年月日</label><br>
+				<input type="text" name="join_date" [(ngModel)]="employee.join_date">
+			</td>
+		</tr>
+		<tr>
+			<td>
+    			<label>自社メールアドレス</label><br>
+				<input type="text" name="company_email" [(ngModel)]="employee.company_email">
+			</td>
+			<td>
+    			<label>写真イメージ</label><br>
+				<input type="text" name="image" [(ngModel)]="employee.image">
+			</td>
+		</tr>
+		<tr>
+			<td>
+    			<label>所属支店</label><br>
+				<input type="text" name="branch_id" [(ngModel)]="employee.branch_id">
+			</td>
+			<td>
+    			<label>所属部署</label><br>
+				<input type="text" name="department_id" [(ngModel)]="employee.department_id">
+			</td>
+		</tr>
+	</table>
+	<a href="http://192.168.33.182:4200/list">
+		<button type="button">戻る</button>
+   	</a>
+	<input type="submit" value="登録">
+	</form>
+<div class="footer">
+</div>
+</div>
