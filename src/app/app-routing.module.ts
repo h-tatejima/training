@@ -8,7 +8,8 @@ import { DetailComponent } from './detail/detail.component';
 const routes: Routes = [
   { path: 'list', component: ListComponent },
   { path: 'insert', component: InsertComponent },
-  { path: 'detail', component: DetailComponent }
+  { path: 'insert/:id', component: InsertComponent },
+  { path: 'detail/:id', component: DetailComponent }
 ];
 
 @NgModule({
