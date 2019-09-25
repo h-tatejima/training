@@ -1,20 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee';
 import { Observable, of } from 'rxjs/index';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const http_options = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  employee = [
-      new Employee('名前', 'e_name_kana', 'e_name_en', 'postal_code', 'address', 'phone_number', 'email', 'sex', 'birthday', 'final_education', 'final_education2', '入社年月日', 'company_email', '1', 'image', 'branch_id', 'department_id'),
-      new Employee('名前', 'e_name_kana', 'e_name_en', 'postal_code', 'address', 'phone_number', 'email', 'sex', 'birthday', 'final_education', 'final_education2', '入社年月日', 'company_email', '2', 'image', 'branch_id', 'department_id')
-      ];
+  employee = [];
 
-  constructor() { }
+  constructor(
+    private client: HttpClient,
+  ) { }
   
-  list(): Observable<Employee[]> {
-    return of(this.employee);
+  list() {
+    this.client.get('/api/list').subscribe((results: EmpList) => {
+      for(let index in results.idList) {
+        this.itemService.empInfoList[index] = {
+          id: results.idList[index]
+          , name: results.nameList[index]
+          , date: results.dateList[index]
+        };
+      }
+    });
   }
   
   get(id: string): Observable<Employee> {
