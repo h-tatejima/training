@@ -19,7 +19,7 @@ export class EmployeeService {
   ) { }
   
   list() {
-      return this.client.get('/api/list')
+      return this.client.get<Employee>('/api/list')
   }
   
   get(id: string) {
