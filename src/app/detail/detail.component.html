@@ -1,0 +1,120 @@
+<div class="container">
+<h1><u>{{ employee.e_name }}</u></h1>
+       	<table border='1'>
+       		<tbody>
+	    		<tr>
+	    			<td>
+	    				<label>名前</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.e_name }}
+	    			</td>
+	    			<td>
+	    				<img src="{{ employee.image }}" >
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>ふりがな</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.e_name_kana }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>name</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.e_name_en }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>性別</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.sex }}
+	    			</td>
+	    			<td>
+	    				<label>生年月日</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.birthday }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>住所</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.postal_code }}
+	    			</td>
+	    			<td>
+	    				{{ employee.address }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>電話番号</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.phone_number }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>メールアドレス</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.email }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>最終学歴</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.final_education }}
+	    				&nbsp;
+	    				{{ employee.final_education2 }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>従業員ID</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.e_id }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>入社年月日</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.join_date }}
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<label>自社メールアドレス</label>
+	    			</td>
+	    			<td>
+	    				{{ employee.company_email }}
+	    			</td>
+	    		</tr>
+	    	</tbody>
+	    </table>
+   		<a href="192.168.33.182:4200/insert">
+   			<button type="button">編集</button>
+   		</a>
+   		<a href="">
+	   		<button type="button">削除</button>
+	   	</a>
+   		<a href="http://192.168.33.182:4200/list">
+			<button type="button">戻る</button>
+   		</a>
+<div class="footer">
+</div>
+</div>
