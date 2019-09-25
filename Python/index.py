@@ -349,10 +349,22 @@ if department == 0:
     
     session.commit()
 
-@app.route('/api/list')
+@app.route('/api/list', methods=["GET"])
 def  list():
-    employee = session.query(Employee).all()
-    return jsonify({'employee': employee})
+    e_id_list = []
+    e_name_list = []
+    join_date_list = []
+    for emp in session.query(Employee.e_id, Employee.e_name, Employee.join_date):
+        e_id_list.append(emp.e_id)
+        e_name_list.append(emp.e_name)
+        join_date_list.append(emp.join_date)
+    
+    employeeList = {
+        "eidList": e_id_list
+        , "enameList": e_name_list
+        , "joindateList": join_date_list
+    }
+    return jsonify(employeeList)
     
 @app.route('/insert')
 def  insert():

@@ -18,9 +18,7 @@ export class DetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.employeeService.get(params['id']).subscribe((employee: Employee) => {
-        this.employee = employee;
-      });
+      
     });
   }
 

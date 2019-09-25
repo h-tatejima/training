@@ -15,8 +15,7 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.employeeService.list();
-    }
-  
+    this.employeeService.list()
+  }
 
 }

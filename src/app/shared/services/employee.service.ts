@@ -13,17 +13,16 @@ const http_options = {
   providedIn: 'root'
 })
 export class EmployeeService {
-  employee = [];
 
   constructor(
     private client: HttpClient,
   ) { }
   
-  list(): Observable<Employee[]> {
-    return of(this.employee);
+  list() {
+      return this.client.get('/api/list')
   }
   
-  get(id: string): Observable<Employee> {
-    return of(this.employee[id]);
+  get(id: string) {
+    
   }
 }
