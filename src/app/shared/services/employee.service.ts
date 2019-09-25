@@ -19,16 +19,8 @@ export class EmployeeService {
     private client: HttpClient,
   ) { }
   
-  list() {
-    this.client.get('/api/list').subscribe((results: EmpList) => {
-      for(let index in results.idList) {
-        this.itemService.empInfoList[index] = {
-          id: results.idList[index]
-          , name: results.nameList[index]
-          , date: results.dateList[index]
-        };
-      }
-    });
+  list(): Observable<Employee[]> {
+    return of(this.employee);
   }
   
   get(id: string): Observable<Employee> {
