@@ -318,6 +318,7 @@ class UpdateForm(FlaskForm):
                   
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret_key"
+app.config['JSON_AS_ASCII'] = False
 
 # SQLAlchemy はセッションを介してクエリを実行する
 Session = sessionmaker(bind=engine)
