@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_wtf import FlaskForm
 from wtforms import StringField, FileField, ValidationError
 import re
@@ -348,10 +348,10 @@ if department == 0:
     
     session.commit()
 
-@app.route('/index')
-def  index():
+@app.route('/api/list')
+def  list():
     employee = session.query(Employee).all()
-    return render_template('/bootstrap/index.html', employee=employee)
+    return jsonify({'employee': employee})
     
 @app.route('/insert')
 def  insert():
