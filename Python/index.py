@@ -10,6 +10,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, FileField, ValidationError
 import re
 import datetime
+import json
 import pdb
   
 engine = create_engine('mysql+pymysql://testUser:testPassword@localhost/test')
@@ -318,6 +319,7 @@ class UpdateForm(FlaskForm):
                   
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret_key"
+app.config['JSON_AS_ASCII'] = False
 
 # SQLAlchemy はセッションを介してクエリを実行する
 Session = sessionmaker(bind=engine)
@@ -348,10 +350,10 @@ if department == 0:
     
     session.commit()
 
-@app.route('/index')
-def  index():
+@app.route('/api/list', methods=["GET"])
+def  list():
     employee = session.query(Employee).all()
-    return render_template('/bootstrap/index.html', employee=employee)
+    return jsonify({'employee' : employee})
     
 @app.route('/insert')
 def  insert():
