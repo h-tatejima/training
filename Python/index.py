@@ -357,7 +357,7 @@ def  list():
           'e_id': emp.e_id,
           'e_name': emp.e_name,
           'join_date': emp.join_date
-        )}
+        })
     return jsonify(emp_List)
     
 @app.route('/insert')
