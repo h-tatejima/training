@@ -358,15 +358,25 @@ def  list():
           'e_name': emp.e_name,
           'join_date': emp.join_date
         })
-    return jsonify(emp_List)
+    return jsonify(emp_list)
     
-@app.route('/insert')
+@app.route('/api/insert', methods=["GET"])
 def  insert():
     #pdb.set_trace()
     form = InsertForm()
-    branch = session.query(Branch).all()
-    department = session.query(Department).all()
-    return render_template('/bootstrap/insert.html', form=form, branch=branch, department=department)
+    bra_depa_list = []
+    department_list = []
+    for branch in session.query(Branch.branch_id, Branch.branch_name):
+        bra_depa_list.append({
+          'branch_id': branch.branch_id,
+          'branch_name': branch.branch_name
+        })
+    for department in session.query(Department.department_id, Department.department_name):
+        bra_depa_list.append({
+          'department_id': department.department_id,
+          'department_name': department.department_name
+        })
+    return jsonify(bra_depa_list)
     
 @app.route('/add',methods=["post"])
 def  add():
