@@ -10,6 +10,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, FileField, ValidationError
 import re
 import datetime
+import json
 import pdb
   
 engine = create_engine('mysql+pymysql://testUser:testPassword@localhost/test')
@@ -364,130 +365,86 @@ def  list():
 def  insert():
     #pdb.set_trace()
     form = InsertForm()
-    bra_depa_list = []
+    branch_list = []
     department_list = []
     for branch in session.query(Branch.branch_id, Branch.branch_name):
-        bra_depa_list.append({
+        branch_list.append({
           'branch_id': branch.branch_id,
           'branch_name': branch.branch_name
         })
     for department in session.query(Department.department_id, Department.department_name):
-        bra_depa_list.append({
+        department_list.append({
           'department_id': department.department_id,
           'department_name': department.department_name
         })
-    return jsonify(bra_depa_list)
+    return jsonify(branch_list,department_list)
     
-@app.route('/add',methods=["post"])
+@app.route('/api/add', methods=["POST"])
 def  add():
-    form = InsertForm()
-    if form.validate_on_submit():
-        e_name = request.form["e_name"]
-        e_name_kana = request.form["e_name_kana"]
-        e_name_en = request.form["e_name_en"]
-        postal_code = request.form["postal_code"]
-        address = request.form["address"]
-        phone_number = request.form["phone_number"]
-        email = request.form["email"]
-        sex = request.form["sex"]
-        birthday = request.form["birthday"]
-        final_education = request.form["final_education"]
-        final_education2 = request.form["final_education2"]
-        join_date = request.form["join_date"]
-        image = request.form["image"]
-        branch_id = request.form["branch_id"]
-        department_id = request.form["department_id"]
+      e_name = request.json["e_name"]
+      e_name_kana = request.json["e_name_kana"]
+      e_name_en = request.json["e_name_en"]
+      postal_code = request.json["postal_code"]
+      address = request.json["address"]
+      phone_number = request.json["phone_number"]
+      email = request.json["email"]
+      sex = request.json["sex"]
+      birthday = request.json["birthday"]
+      final_education = request.json["final_education"]
+      final_education2 = request.json["final_education2"]
+      join_date = request.json["join_date"]
+      company_email = request.json["company_email"]
+      image = request.json["image"]
+      branch_id = request.json["branch_id"]
+      department_id = request.json["department_id"]
+      
+      session.add(Employee(\
+      e_name=e_name,\
+      e_name_kana=e_name_kana,\
+      e_name_en=e_name_en,\
+      postal_code=postal_code,\
+      address=address,\
+      phone_number=phone_number,\
+      email=email,\
+      sex=sex,\
+      birthday=birthday,\
+      final_education=final_education,\
+      final_education2=final_education2,\
+      join_date=join_date,\
+      company_email=company_email,\
+      e_id=e_id,\
+      image=image,\
+      branch_id=branch_id,\
+      department_id=department_id))
+      session.commit()
+      return list()
         
-        name = e_name_en.split()
-        name_first = name[0]
-        name_family = name[1]
-        name_head = name_first[0]
-        
-        for emp_name in session.query(Employee).filter(Employee.e_name_en.like("%" + name_first + "%")):
-             db_name = emp_name.e_name_en
-             db_name_split = db_name.split()
-             db_name_first = db_name_split[0]
-             if db_name_first == name_first:
-                 name_family = name_family[0]
-                 name_head = name_first
-                 break
-                 
-        else:
-            name_list = list()
-            for emp_family in session.query(Employee).filter(Employee.e_name_en.like("%" + name_family + "%")):
-                 db_name = emp_family.e_name_en
-                 db_name_split = db_name.split()
-                 db_name_first = db_name_split[0]
-                 db_name_len = len(db_name_first)
-                 in_name_len = len(name_first)
-                 if db_name_len > in_name_len:
-                     name_len = in_name_len
-                 else:
-                     name_len = db_name_len
-                     
-                 for i in range(name_len):
-                      if db_name_first[i] == name_first[i]:
-                          name_head = name_first[:i+2]
-                      else:
-                          break
-                      
-                 name_list.append(name_head)
-             
-            name_list_len = len(name_list)
-            if name_list_len != 0:
-                name_list_max = max(name_list, key=len)
-                name_head = name_list_max
-        
-        if branch_id == "00001":
-            branch_head = "tky"
-        elif branch_id == "00002":
-            branch_head = "ngy"
-        else:
-            branch_head = "sdi"
-            
-        company_email = name_head + "-" + name_family + "@" + branch_head + ".emdes.co.jp"
-        
-        db_employee_id = list()
-        for emp in session.query(Employee):
-            db_employee_id.append(emp.e_id[6:13])
-            
-        db_employee_id_len = len(db_employee_id)
-        if db_employee_id_len != 0:
-            db_e_id_max = max(db_employee_id)
-            e_id_num = int(db_e_id_max) + 1
-            e_id = "emd" + branch_head + str(e_id_num).rjust(7,"0")
-        else:
-            e_id = "emd" + branch_head + "0000000"
-        
-        session.add(Employee(\
-        e_name=e_name,\
-        e_name_kana=e_name_kana,\
-        e_name_en=e_name_en,\
-        postal_code=postal_code,\
-        address=address,\
-        phone_number=phone_number,\
-        email=email,\
-        sex=sex,\
-        birthday=birthday,\
-        final_education=final_education,\
-        final_education2=final_education2,\
-        join_date=join_date,\
-        company_email=company_email,\
-        e_id=e_id,\
-        image=image,\
-        branch_id=branch_id,\
-        department_id=department_id))
-        session.commit()
-        return index()
-        
-    branch = session.query(Branch).all()
-    department = session.query(Department).all()
-    return render_template("/bootstrap/insert.html", form=form, branch=branch, department=department)
+      return make_response(jsonify({'res': 'OK'}))
     
-@app.route('/detail/<id>', methods=["get"])
+@app.route('/api/detail/<id>', methods=["get"])
 def detail(id):
-    employee = session.query(Employee).get(id)
-    return render_template('/bootstrap/detail.html', employee=employee)
+    detail = {}
+    for emp in session.query(Employee).filter(Employee.e_id==id):
+        detail = {
+          'e_name': emp.e_name,
+          'e_name_kana': emp.e_name_kana,
+          'e_name_en': emp.e_name_en,
+          'postal_code': emp.postal_code,
+          'address': emp.address,
+          'phone_number': emp.phone_number,
+          'email': emp.email,
+          'sex': emp.sex,
+          'birthday': emp.birthday,
+          'final_education': emp.final_education,
+          'final_education2': emp.final_education2,
+          'join_date': emp.join_date,
+          'company_email': emp.company_email,
+          'e_id': emp.e_id,
+          'image': emp.image,
+          'branch_id': emp.branch_id,
+          'department_id': emp.department_id
+        }
+    return jsonify(detail)
     
 @app.route('/delete/<id>', methods=["get"])
 def delete(id):
