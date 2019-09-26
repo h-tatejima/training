@@ -1,91 +1,100 @@
 <div class="container">
 <h1>社員情報編集</h1>
-	<form class="edit-form">
+	<form (ngSubmit)="onSubmit()" class="edit-form">
 	<table>
 		<tr>
     		<td>
     			<label>名前</label><br>
-				<input type="text" name="e_name" [(ngModel)]="employee.e_name">
+				<input type="text" name="e_name" [(ngModel)]="e_name">
 			</td>
 			<td>
     			<label>よみがな</label><br>
-				<input type="text" name="e_name_kana" [(ngModel)]="employee.e_name_kana">
+				<input type="text" name="e_name_kana" >
 			</td>
 		</tr>
 		<tr>
 			<td>
     			<label>name</label><br>
-				<input type="text" name="e_name_en" [(ngModel)]="employee.e_name_en">
+				<input type="text" name="e_name_en" >
 			</td>
 		</tr>
 		<tr>
 			<td>
     			<label>性別</label><br>
-				<input type="text" name="sex" [(ngModel)]="employee.sex">
+				<input type="radio" name="sex" value="男性" checked="checked">男性
+				<input type="radio" name="sex" value="女性">女性
 			</td>
 			<td>
     			<label>生年月日</label><br>
-				<input type="text" name="birthday" [(ngModel)]="employee.birthday">
+				<input type="text" name="birthday" >
 			</td>
 		</tr>
 		<tr>
 			<td>
     			<label>郵便番号</label><br>
-				<input type="text" name="postal_code" [(ngModel)]="employee.postal_code">
+				<input type="text" name="postal_code" >
 			</td>
 			<td>
     			<label>住所</label><br>
-				<input type="text" name="postal_code" [(ngModel)]="employee.address">
+				<input type="text" name="postal_code" >
 			</td>
 		</tr>
 		<tr>
 			<td>
     			<label>電話番号</label><br>
-				<input type="text" name="phone_number" [(ngModel)]="employee.phone_number">
+				<input type="text" name="phone_number" >
 			</td>
 			<td>
     			<label>メールアドレス</label><br>
-				<input type="text" name="email" [(ngModel)]="employee.email">
+				<input type="text" name="email" >
 			</td>
 		</tr>
 		<tr>
 			<td>
     			<label>最終学歴</label><br>
-				<input type="text" name="final_education" [(ngModel)]="employee.final_education">
+				<input type="text" name="final_education" >
 			</td>
 			<td>
 				<label></label><br>
-				<input type="text" name="final_education2" [(ngModel)]="employee.final_education2">
+				<select name="final_education2">
+					<option value="卒業">卒業</option>
+		    		<option value="中退">中退</option>
+		    		<option value="在学中">在学中</option>
+		    	</select>
 			</td>
 		</tr>
 		<tr>
 			<td>
     			<label>従業員ID</label><br>
-				<input type="text" name="e_id" [(ngModel)]="employee.e_id">
+				<input type="text" name="e_id" >
 			</td>
 			<td>
     			<label>入社年月日</label><br>
-				<input type="text" name="join_date" [(ngModel)]="employee.join_date">
+				<input type="text" name="join_date" >
 			</td>
 		</tr>
 		<tr>
 			<td>
     			<label>自社メールアドレス</label><br>
-				<input type="text" name="company_email" [(ngModel)]="employee.company_email">
+				<input type="text" name="company_email" >
 			</td>
 			<td>
     			<label>写真イメージ</label><br>
-				<input type="text" name="image" [(ngModel)]="employee.image">
+				<input type="file" name="image" >
 			</td>
 		</tr>
 		<tr>
 			<td>
     			<label>所属支店</label><br>
-				<input type="text" name="branch_id" [(ngModel)]="employee.branch_id">
+				<select name="branch_id">
+					<option *ngFor="let bra of branch" value="bra.branch_id">{{ bra.branch_name }}</option>
+		    	</select>
 			</td>
 			<td>
     			<label>所属部署</label><br>
-				<input type="text" name="department_id" [(ngModel)]="employee.department_id">
+				<select name="department_id">
+					<option *ngFor="let depa of department" value="depa.department_id">{{ depa.department_name }}</option>
+		    	</select>
 			</td>
 		</tr>
 	</table>

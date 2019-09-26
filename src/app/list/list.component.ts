@@ -8,16 +8,16 @@ import { EmployeeService } from '../shared/services/employee.service';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  employee: Employee[] = null;
+  employee: Employee[]
   
   constructor(
     private employeeService: EmployeeService,
   ) { }
 
   ngOnInit() {
-    this.employeeService.list().subscribe((employee: Employee) => {
-        this.employee = employee;
-      });
+    this.employeeService.list().subscribe((employee: Employee[]) => {
+      this.employee = employee;
+    });
   }
 
 }
