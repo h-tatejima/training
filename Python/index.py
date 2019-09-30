@@ -445,14 +445,27 @@ def detail(id):
           'branch_id': emp.branch_id,
           'department_id': emp.department_id
         }
-    return jsonify(detail)
+        
+    branch_list = []
+    department_list = []
+    for branch in session.query(Branch.branch_id, Branch.branch_name):
+        branch_list.append({
+          'branch_id': branch.branch_id,
+          'branch_name': branch.branch_name
+        })
+    for department in session.query(Department.department_id, Department.department_name):
+        department_list.append({
+          'department_id': department.department_id,
+          'department_name': department.department_name
+        })
+    return jsonify(detail,branch_list,department_list)
     
-@app.route('/delete/<id>', methods=["get"])
+@app.route('/api/delete/<id>', methods=["delete"])
 def delete(id):
-    employee = session.query(Employee).get(id)
-    session.delete(employee)
+    employee = session.query(Employee).filter(Employee.e_id == id).delete()
+    print(employee)
     session.commit()
-    return index()
+    return list()
     
 @app.route('/update/<id>', methods=["get"])
 def update(id):
