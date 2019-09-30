@@ -394,6 +394,7 @@ def  add():
       final_education2 = request.json["final_education2"]
       join_date = request.json["join_date"]
       company_email = request.json["company_email"]
+      e_id = request.json["e_id"]
       image = request.json["image"]
       branch_id = request.json["branch_id"]
       department_id = request.json["department_id"]
@@ -461,31 +462,30 @@ def update(id):
     department = session.query(Department).all()
     return render_template("/bootstrap/insert.html", employee=employee, form=form, branch=branch, department=department)
     
-@app.route('/update_employee/<id>', methods=["post"])
+@app.route('/api/update/<id>', methods=["post"])
 def update_employee(id):
     form = UpdateForm()
     employee = session.query(Employee).get(id)
-    employee.e_name = request.form["e_name"]
-    employee.e_name_kana = request.form["e_name_kana"]
-    employee.e_name_en = request.form["e_name_en"]
-    employee.postal_code = request.form["postal_code"]
-    employee.address = request.form["address"]
-    employee.phone_number = request.form["phone_number"]
-    employee.email = request.form["email"]
-    employee.sex = request.form["sex"]
-    employee.birthday = request.form["birthday"]
-    employee.final_education = request.form["final_education"]
-    employee.final_education2 = request.form["final_education2"]
-    employee.join_date = request.form["join_date"]
-    employee.company_email = request.form["company_email"]
-    employee.image = request.form["image"]
-    if form.validate_on_submit():
-        session.add(employee)
-        session.commit()
-        return index()
-    branch = session.query(Branch).all()
-    department = session.query(Department).all()
-    return render_template("/bootstrap/insert.html", employee=employee, form=form, branch=branch, department=department)
+    employee.e_name = request.json["e_name"]
+    employee.e_name_kana = request.json["e_name_kana"]
+    employee.e_name_en = request.json["e_name_en"]
+    employee.postal_code = request.json["postal_code"]
+    employee.address = request.json["address"]
+    employee.phone_number = request.json["phone_number"]
+    employee.email = request.json["email"]
+    employee.sex = request.json["sex"]
+    employee.birthday = request.json["birthday"]
+    employee.final_education = request.json["final_education"]
+    employee.final_education2 = request.json["final_education2"]
+    employee.join_date = request.json["join_date"]
+    employee.company_email = request.json["company_email"]
+    employee.e_id = request.json["e_id"]
+    employee.image = request.json["image"]
+    employee.branch_id = reqest.json["branch_id"]
+    employee.department_id = request.json["department_id"]
+    session.add(employee)
+    session.commit()
+    return make_response(jsonify({'res': 'OK'}))
 
 if __name__ == '__main__':
     app.run(debug = True, host='0.0.0.0', port=80)
